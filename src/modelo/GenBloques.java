@@ -8,13 +8,17 @@ public class GenBloques {
         return miGenBloques;
     }
 
-    public Bloque generar(String pTipo, int pY, int pX) {
+    public Bloque generar(String pTipo, int pY, int pX, int pZ) {
             if (pTipo.equals("Vacio")) {
-                BloqueVacio nuevo =new BloqueVacio(pY,pX);
+                BloqueVacio nuevo =new BloqueVacio(pY,pX,pZ);
                 return nuevo;
             }
             else if (pTipo.equals("Tierra")) {
-                BloqueTierra nuevo =new BloqueTierra(pY,pX);
+                BloqueTierra nuevo =new BloqueTierra(pY,pX,pZ);
+                return nuevo;
+            }
+            else if (pTipo.equals("Tierra2")) {
+                BloqueTierra2 nuevo =new BloqueTierra2(pY,pX,pZ);
                 return nuevo;
             }
             else return null;

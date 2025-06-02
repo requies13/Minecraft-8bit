@@ -1,6 +1,7 @@
 package vista;
 
 import controlador.ControladorJuego;
+import modelo.Jugador;
 import modelo.Mapa;
 
 import javax.swing.*;
@@ -11,56 +12,31 @@ import java.util.Observer;
 
 public class VistaJuego extends JFrame implements Observer {
     private static final long serialVersionUID = -5000978209518964435L;
-    private JPanel contentPane;
-    private JLabel[][] labels;
+    //private JPanel contentPane;
+    private PanelIsometrico paneles;
+    private BloqueVisual[][][] bloques;
+    private Image tierraImg = new ImageIcon(getClass().getClassLoader().getResource("img/tierra.png")).getImage();
+    private Image tierra2Img = new ImageIcon(getClass().getClassLoader().getResource("img/tierra2.png")).getImage();
+    private Image jugadorImg = new ImageIcon(getClass().getClassLoader().getResource("img/jugador.png")).getImage();
 
     public VistaJuego() {
         this.addKeyListener(ControladorJuego.getControlador());  		// Agregar el KeyListener al JFrame en lugar del JPanel
         Mapa.getMiMapa().addObserver(this);
+        Jugador.getMiJugador().addObserver(this);
+        setTitle("Minecraft-8bit");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         this.crearPaneles();
     }
 
-    protected JLabel[][] getLabels() {
-        return this.labels;
-    }
-
     private void crearPaneles() {
-        contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-        contentPane.setLayout(new GridLayout(16, 16, 0, 0));
-
-        // Crear matriz de etiquetas
-        labels = new JLabel[16][16];
-
-        for (int y = 0; y < 16; y++) {
-            for (int x = 0; x < 16; x++) {
-                labels[y][x] = new JLabel("■"); // o "", o cualquier símbolo de bloque
-                labels[y][x].setHorizontalAlignment(SwingConstants.CENTER);
-                labels[y][x].setOpaque(true);
-                labels[y][x].setBackground(Color.LIGHT_GRAY); // Fondo por defecto
-                contentPane.add(labels[y][x]);
-            }
-        }
-
-        setContentPane(contentPane);
-    }
-
-
-    private void pintarMapa(Object[] array) {
-        int numeroEntrada = (int) array[1];
-        int y = (int) array[2];
-        int x = (int) array[3];
-
-        if (numeroEntrada == 0) { // Bloque vacío
-            labels[y][x].setBackground(Color.BLUE);
-            labels[y][x].setText("Air");
-        }
-        else if (numeroEntrada == 1) { // Tierra
-            labels[y][x].setBackground(new Color(139, 69, 19)); // Marrón
-            labels[y][x].setText("■"); // Opcional
-        }
-
+        paneles = new PanelIsometrico();
+        paneles.setBorder(new EmptyBorder(5, 5, 5, 5));
+        add(paneles);
+        paneles.setPreferredSize(new Dimension(1200, 800));
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     @Override
@@ -70,6 +46,39 @@ public class VistaJuego extends JFrame implements Observer {
         int quienLlama = (int) array[0];
         if (quienLlama == 1) {
             this.pintarMapa(array);
+        } else if (quienLlama == 2) {
+            this.pintarJugador(array);
+        }
+    }
+    private void pintarMapa(Object[] array) {
+        int numeroEntrada = (int) array[1];
+        int y = (int) array[2];
+        int x = (int) array[3];
+        int z = (int) array[4];
+        BloqueVisual bloque = null;
+
+        if (numeroEntrada == 0) { // Bloque de Aire
+        }
+        else if (numeroEntrada == 1) { // Bloque de Tierra
+            bloque = new BloqueVisual(x, y, z, tierraImg);
+            paneles.agregarBloque(bloque);
+        }
+        else if (numeroEntrada == 2) {
+            bloque = new BloqueVisual(x, y, z, tierra2Img);
+            paneles.agregarBloque(bloque);
+        }
+    }
+    private void pintarJugador(Object[] array) {
+        int numeroEntrada = (int) array[1];
+        int y = (int) array[2];
+        int x = (int) array[3];
+        int z = (int) array[4];
+        JugadorVisual jugador = null;
+        paneles.setJugador(null);
+
+        if (numeroEntrada == 0) { // Spawneo
+            jugador = new JugadorVisual(x, y, z, jugadorImg);
+            paneles.setJugador(jugador);
         }
     }
 }

@@ -3,45 +3,67 @@ import java.util.Observable;
 
 public class Jugador extends Observable{
         private static Jugador miJugador = new Jugador();
-        private int x, y;
+        private int x, y, z;
 
-        private Jugador() {
-                this.x = 0;
-                this.y = 0;
-        }
+        private Jugador() {}
         public static Jugador getMiJugador() {
             return miJugador;
         }
 
+        public void crearJugador() {
+                this.x = 0;
+                this.y = 9;
+                this.z = 0;
+                notificarJugador(0);
+        }
+
         public void dejarDeMostrarPersonaje(){}
 
-        public void mostrarPersonajeUp(){}
-
-        public void mostrarPersonajeLeft(){}
-
-        public void mostrarPersonajeRight(){}
-
-        public void mostrarPersonaje(){}
-
-
         public void movimientoL() {
+                if (Mapa.getMiMapa().hayBloque(x-1,y,z)){
+                        x=x-1;
+                        System.out.println("left");
+                        notificarJugador(1);
+                }
         }
 
         public void movimientoR() {
+                if (Mapa.getMiMapa().hayBloque(x+1,y,z)){
+                        x=x+1;
+                        System.out.println("right");
+                        notificarJugador(2);
+                }
         }
 
         public void movimientoU() {
+                if (Mapa.getMiMapa().hayBloque(x,y,z-1)){
+                        z=z-1;
+                        System.out.println("up");
+                        notificarJugador(3);
+                }
         }
 
         public void movimientoD() {
+                if (Mapa.getMiMapa().hayBloque(x,y,z+1)){
+                        z=z+1;
+                        System.out.println("down");
+                        notificarJugador(4);
+                }
         }
 
-        protected int getX() {
+        public int getX() {
             return this.x;
         }
 
-        protected int getY() {
+        public int getY() {
             return this.y;
+        }
+
+        public int getZ() { return this.z; }
+
+        private void notificarJugador(int Dir) {
+                setChanged();
+                notifyObservers(new Object[] {2, 0, y, x, z});
         }
 
 }

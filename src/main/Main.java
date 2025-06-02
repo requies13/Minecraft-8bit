@@ -1,5 +1,6 @@
 package main;
 
+import modelo.Jugador;
 import modelo.Mapa;
 import vista.VistaJuego;
 
@@ -14,9 +15,10 @@ public class Main {
                 try {
 
                     VistaJuego vista = new VistaJuego();
-                    vista.setSize(720, 480);
+                    vista.setSize(1200, 800);
                     vista.setVisible(true);
                     Mapa.getMiMapa().crearMapa();
+                    Jugador.getMiJugador().crearJugador();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
