@@ -11,12 +11,12 @@ public class Chunk {
             for (int y = 0; y < 16; y++) {
                 for (int x = 0; x < 16; x++) {
                     for (int z = 0; z < 16; z++) {
-                        if (y > 8) {
+                        if (y > 9) {
                             blocks[y][x][z] = GenBloques.getMiGenBloques().generar("Vacio", y, x, z);
                             int absX = pX * 16 + x;
                             int absZ = pZ * 16 + z;
                             Mapa.getMiMapa().notificarCambio(0, y, absX, absZ);
-                        } else if (y == 8) {
+                        } else if (y == 9) {
                             blocks[y][x][z] = GenBloques.getMiGenBloques().generar("Tierra", y, x, z);
                             int absX = pX * 16 + x;
                             int absZ = pZ * 16 + z;
@@ -34,7 +34,7 @@ public class Chunk {
             for (int y = 0; y < 16; y++) {
                 for (int x = 0; x < 16; x++) {
                     for (int z = 0; z < 16; z++) {
-                        if (y > 8) {
+                        if (y > 4) {
                             blocks[y][x][z] = GenBloques.getMiGenBloques().generar("Vacio", y, x, z);
                             int absX = pX * 16 + x;
                             int absZ = pZ * 16 + z;
@@ -52,7 +52,27 @@ public class Chunk {
         this.id = pId;
     }
 
-    public boolean hayBloque(int x, int y, int z) {
-        return blocks[x][y][z] != null && !(blocks[x][y][z] instanceof BloqueVacio);
+    public boolean hayBloquesEncima(int y, int x, int z) {
+
+        int localX = x % 16;
+        int localY = y % 16;
+        int localZ = z % 16;
+
+        if(blocks[localY+1][localX][localZ] instanceof BloqueVacio) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean esBloqueSolido(int y, int x, int z) {
+
+        int localX = x % 16;
+        int localY = y % 16;
+        int localZ = z % 16;
+
+        if(blocks[localY][localX][localZ] instanceof BloqueVacio) {
+            return false;
+        }
+        return true;
     }
 }

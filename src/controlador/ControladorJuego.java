@@ -34,6 +34,9 @@ public class ControladorJuego implements KeyListener {
         else if(keyCode == KeyEvent.VK_DOWN) {
             Jugador.getMiJugador().movimientoD();
         }
+        else if(keyCode == KeyEvent.VK_ESCAPE) {
+            System.exit(0);
+        }
     }
 
     @Override

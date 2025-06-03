@@ -3,13 +3,13 @@ import java.util.Observable;
 
 public class Bloque extends Observable{
 
-    private int x; //Ancho
     private int y; //Altura
+    private int x; //Ancho
     private int z; //Profundidad
 
     protected Bloque(int pY, int pX, int pZ) {
-        x=pX;
         y=pY;
+        x=pX;
         z=pZ;
     }
     protected int getX() {return x;}

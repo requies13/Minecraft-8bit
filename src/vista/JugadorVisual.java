@@ -6,9 +6,9 @@ public class JugadorVisual {
     private int x, y, z;
     private Image imagen;
 
-    public JugadorVisual(int x, int y, int z, Image imagen) {
-        this.x = x;
+    public JugadorVisual(int y, int x, int z, Image imagen) {
         this.y = y;
+        this.x = x;
         this.z = z;
         this.imagen = imagen;
     }
@@ -18,9 +18,9 @@ public class JugadorVisual {
     public int getZ() { return z; }
     public Image getImagen() { return imagen; }
 
-    public void mover(int dx, int dy, int dz) {
-        x += dx;
+    public void mover(int dy, int dx, int dz) {
         y += dy;
+        x += dx;
         z += dz;
     }
 }

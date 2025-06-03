@@ -4,7 +4,10 @@ import java.util.Observable;
 
 public class Mapa extends Observable {
     private static Mapa miMapa = new Mapa();
-    private Chunk[][] tablero = new Chunk[2][2];
+    private int chunkX = 2;
+    private int chunkZ = 2;
+    private Chunk[][] tablero = new Chunk[chunkX][chunkZ];
+
 
     private Mapa() {}
 
@@ -23,8 +26,35 @@ public class Mapa extends Observable {
             }
         }
     }
-    public boolean hayBloque(int x, int y, int z) {
-        return tablero[0][0].hayBloque(x,y,z);
+    public boolean hayBloque(int y, int x, int z) {
+        int nX = x / 16;
+        int nY = y / 16;
+        int nZ = z / 16;
+        if ((x<0 || z<0)) {
+            return false;
+        } else if ((nX>chunkX-1 || nZ>chunkZ-1)) {
+            return false;
+        }
+        return true;
+    }
+    public boolean hayBloquesEncima(int y, int x, int z) {
+        int nX = x / 16;
+        int nY = y / 16;
+        int nZ = z / 16;
+        if(tablero[nX][nZ].hayBloquesEncima(y,x,z)){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean esBloqueSolido(int y, int x, int z) {
+        int nX = x / 16;
+        int nY = y / 16;
+        int nZ = z / 16;
+        if(tablero[nX][nZ].esBloqueSolido(y,x,z)){
+            return true;
+        }
+        return false;
     }
 
     public void notificarCambio(int tipoBloque, int y, int x, int z) {

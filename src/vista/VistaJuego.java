@@ -12,9 +12,7 @@ import java.util.Observer;
 
 public class VistaJuego extends JFrame implements Observer {
     private static final long serialVersionUID = -5000978209518964435L;
-    //private JPanel contentPane;
     private PanelIsometrico paneles;
-    private BloqueVisual[][][] bloques;
     private Image tierraImg = new ImageIcon(getClass().getClassLoader().getResource("img/tierra.png")).getImage();
     private Image tierra2Img = new ImageIcon(getClass().getClassLoader().getResource("img/tierra2.png")).getImage();
     private Image jugadorImg = new ImageIcon(getClass().getClassLoader().getResource("img/jugador.png")).getImage();
@@ -31,7 +29,6 @@ public class VistaJuego extends JFrame implements Observer {
 
     private void crearPaneles() {
         paneles = new PanelIsometrico();
-        paneles.setBorder(new EmptyBorder(5, 5, 5, 5));
         add(paneles);
         paneles.setPreferredSize(new Dimension(1200, 800));
         pack();
@@ -60,11 +57,11 @@ public class VistaJuego extends JFrame implements Observer {
         if (numeroEntrada == 0) { // Bloque de Aire
         }
         else if (numeroEntrada == 1) { // Bloque de Tierra
-            bloque = new BloqueVisual(x, y, z, tierraImg);
+            bloque = new BloqueVisual(y, x, z, tierraImg);
             paneles.agregarBloque(bloque);
         }
-        else if (numeroEntrada == 2) {
-            bloque = new BloqueVisual(x, y, z, tierra2Img);
+        else if (numeroEntrada == 2) { // Bloque de Tierra2
+            bloque = new BloqueVisual(y, x, z, tierra2Img);
             paneles.agregarBloque(bloque);
         }
     }
@@ -77,7 +74,7 @@ public class VistaJuego extends JFrame implements Observer {
         paneles.setJugador(null);
 
         if (numeroEntrada == 0) { // Spawneo
-            jugador = new JugadorVisual(x, y, z, jugadorImg);
+            jugador = new JugadorVisual(y, x, z, jugadorImg);
             paneles.setJugador(jugador);
         }
     }

@@ -4,6 +4,7 @@ import java.util.Observable;
 public class Jugador extends Observable{
         private static Jugador miJugador = new Jugador();
         private int x, y, z;
+        private int maxAltura = 10;
 
         private Jugador() {}
         public static Jugador getMiJugador() {
@@ -11,55 +12,107 @@ public class Jugador extends Observable{
         }
 
         public void crearJugador() {
-                this.x = 0;
                 this.y = 9;
+                this.x = 0;
                 this.z = 0;
                 notificarJugador(0);
         }
 
-        public void dejarDeMostrarPersonaje(){}
-
         public void movimientoL() {
-                if (Mapa.getMiMapa().hayBloque(x-1,y,z)){
-                        x=x-1;
-                        System.out.println("left");
-                        notificarJugador(1);
+                int i = 1;
+                if (Mapa.getMiMapa().hayBloque(y,x-1,z)){
+                        if(!Mapa.getMiMapa().hayBloquesEncima(y,x-1,z)) {
+                                while (!Mapa.getMiMapa().esBloqueSolido(y, x - 1, z) && i < maxAltura) {
+                                        y = y - 1;
+                                        i++;
+                                }
+                                x = x - 1;
+                                System.out.println("left");
+                                notificarJugador(1);
+                        } else {
+                                while (Mapa.getMiMapa().esBloqueSolido(y, x - 1, z) && i < maxAltura) {
+                                        y = y + 1;
+                                        i++;
+                                }
+                                y = y - 1;
+                                x = x - 1;
+                                System.out.println("left");
+                                notificarJugador(1);
+                        }
                 }
         }
 
         public void movimientoR() {
-                if (Mapa.getMiMapa().hayBloque(x+1,y,z)){
-                        x=x+1;
-                        System.out.println("right");
-                        notificarJugador(2);
+                int i = 1;
+                if (Mapa.getMiMapa().hayBloque(y,x+1,z)) {
+                        if (!Mapa.getMiMapa().hayBloquesEncima(y, x + 1, z)) {
+                                while (!Mapa.getMiMapa().esBloqueSolido(y, x + 1, z) && i < maxAltura) {
+                                        y = y - 1;
+                                        i++;
+                                }
+                                x = x + 1;
+                                System.out.println("right");
+                                notificarJugador(2);
+                        } else {
+                                while (Mapa.getMiMapa().esBloqueSolido(y, x + 1, z) && i < maxAltura) {
+                                        y = y + 1;
+                                        i++;
+                                }
+                                y = y - 1;
+                                x = x + 1;
+                                System.out.println("right");
+                                notificarJugador(2);
+                        }
                 }
         }
 
         public void movimientoU() {
-                if (Mapa.getMiMapa().hayBloque(x,y,z-1)){
-                        z=z-1;
-                        System.out.println("up");
-                        notificarJugador(3);
+                int i = 1;
+                if (Mapa.getMiMapa().hayBloque(y,x,z-1)) {
+                        if (!Mapa.getMiMapa().hayBloquesEncima(y, x, z-1)) {
+                                while (!Mapa.getMiMapa().esBloqueSolido(y, x, z-1) && i < maxAltura) {
+                                        y = y - 1;
+                                        i++;
+                                }
+                                z=z-1;
+                                System.out.println("up");
+                                notificarJugador(3);
+                        } else {
+                                while (Mapa.getMiMapa().esBloqueSolido(y, x, z-1) && i < maxAltura) {
+                                        y = y + 1;
+                                        i++;
+                                }
+                                y = y - 1;
+                                z=z-1;
+                                System.out.println("up");
+                                notificarJugador(3);
+                        }
                 }
         }
 
         public void movimientoD() {
-                if (Mapa.getMiMapa().hayBloque(x,y,z+1)){
-                        z=z+1;
-                        System.out.println("down");
-                        notificarJugador(4);
+                int i = 1;
+                if (Mapa.getMiMapa().hayBloque(y,x,z+1)) {
+                        if (!Mapa.getMiMapa().hayBloquesEncima(y, x, z+1)) {
+                                while (!Mapa.getMiMapa().esBloqueSolido(y, x, z+1) && i < maxAltura) {
+                                        y = y - 1;
+                                        i++;
+                                }
+                                z=z+1;
+                                System.out.println("down");
+                                notificarJugador(4);
+                        } else {
+                                while (Mapa.getMiMapa().esBloqueSolido(y, x, z+1) && i < maxAltura) {
+                                        y = y + 1;
+                                        i++;
+                                }
+                                y = y - 1;
+                                z=z+1;
+                                System.out.println("down");
+                                notificarJugador(4);
+                        }
                 }
         }
-
-        public int getX() {
-            return this.x;
-        }
-
-        public int getY() {
-            return this.y;
-        }
-
-        public int getZ() { return this.z; }
 
         private void notificarJugador(int Dir) {
                 setChanged();

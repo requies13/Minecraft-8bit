@@ -6,9 +6,9 @@ public class BloqueVisual {
     private int x, y, z;
     private Image imagen;
 
-    public BloqueVisual(int x, int y, int z, Image imagen) {
-        this.x = x;
+    public BloqueVisual(int y, int x, int z, Image imagen) {
         this.y = y;
+        this.x = x;
         this.z = z;
         this.imagen = imagen;
     }
