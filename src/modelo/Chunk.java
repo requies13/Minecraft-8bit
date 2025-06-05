@@ -75,4 +75,15 @@ public class Chunk {
         }
         return true;
     }
+    public void romperBloque(int y, int x, int z) {
+
+        int localX = x % 16;
+        int localY = y % 16;
+        int localZ = z % 16;
+
+        if(blocks[localY][localX][localZ].sePuedeRomper()) {
+            blocks[localY][localX][localZ] = GenBloques.getMiGenBloques().generar("Vacio", localY, localX, localZ);
+        }
+        Mapa.getMiMapa().notificarCambio(0, y, x, z);
+    }
 }

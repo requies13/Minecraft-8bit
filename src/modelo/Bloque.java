@@ -26,4 +26,8 @@ public class Bloque extends Observable{
         this.z = pZ;
     }
 
+    public boolean sePuedeRomper(){
+        return true;
+    }
+
 }

@@ -1,6 +1,7 @@
 package controlador;
 
 import modelo.Jugador;
+import modelo.Puntero;
 
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
@@ -36,6 +37,21 @@ public class ControladorJuego implements KeyListener {
         }
         else if(keyCode == KeyEvent.VK_ESCAPE) {
             System.exit(0);
+        }
+        else if(keyCode == KeyEvent.VK_A) {
+            Puntero.getMiPuntero().movimientoL();
+        }
+        else if(keyCode == KeyEvent.VK_D) {
+            Puntero.getMiPuntero().movimientoR();
+        }
+        else if(keyCode == KeyEvent.VK_W) {
+            Puntero.getMiPuntero().movimientoU();
+        }
+        else if(keyCode == KeyEvent.VK_S) {
+            Puntero.getMiPuntero().movimientoD();
+        }
+        else if(keyCode == KeyEvent.VK_ENTER) {
+            Puntero.getMiPuntero().romperBloque();
         }
     }
 

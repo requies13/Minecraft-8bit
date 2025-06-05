@@ -113,8 +113,14 @@ public class Jugador extends Observable{
                         }
                 }
         }
+        public int getX() {return x;}
+
+        public int getY() {return y;}
+
+        public int getZ() {return z;}
 
         private void notificarJugador(int Dir) {
+                Puntero.getMiPuntero().seguirJugador();
                 setChanged();
                 notifyObservers(new Object[] {2, 0, y, x, z});
         }

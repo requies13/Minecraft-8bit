@@ -56,6 +56,12 @@ public class Mapa extends Observable {
         }
         return false;
     }
+    public void romperBloque(int y, int x, int z) {
+        int nX = x / 16;
+        int nY = y / 16;
+        int nZ = z / 16;
+        tablero[nX][nZ].romperBloque(y,x,z);
+    }
 
     public void notificarCambio(int tipoBloque, int y, int x, int z) {
         setChanged();

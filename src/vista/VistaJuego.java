@@ -3,6 +3,7 @@ package vista;
 import controlador.ControladorJuego;
 import modelo.Jugador;
 import modelo.Mapa;
+import modelo.Puntero;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -16,11 +17,13 @@ public class VistaJuego extends JFrame implements Observer {
     private Image tierraImg = new ImageIcon(getClass().getClassLoader().getResource("img/tierra.png")).getImage();
     private Image tierra2Img = new ImageIcon(getClass().getClassLoader().getResource("img/tierra2.png")).getImage();
     private Image jugadorImg = new ImageIcon(getClass().getClassLoader().getResource("img/jugador.png")).getImage();
+    private Image punteroImg = new ImageIcon(getClass().getClassLoader().getResource("img/opcion1.png")).getImage();
 
     public VistaJuego() {
         this.addKeyListener(ControladorJuego.getControlador());  		// Agregar el KeyListener al JFrame en lugar del JPanel
         Mapa.getMiMapa().addObserver(this);
         Jugador.getMiJugador().addObserver(this);
+        Puntero.getMiPuntero().addObserver(this);
         setTitle("Minecraft-8bit");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
@@ -45,6 +48,8 @@ public class VistaJuego extends JFrame implements Observer {
             this.pintarMapa(array);
         } else if (quienLlama == 2) {
             this.pintarJugador(array);
+        } else if (quienLlama == 3) {
+            this.pintarPuntero(array);
         }
     }
     private void pintarMapa(Object[] array) {
@@ -55,6 +60,10 @@ public class VistaJuego extends JFrame implements Observer {
         BloqueVisual bloque = null;
 
         if (numeroEntrada == 0) { // Bloque de Aire
+            BloqueVisual bloque2 = paneles.buscarBloque(y,x,z);
+            if(bloque2 != null){
+                paneles.quitarBloque(bloque2);
+            }
         }
         else if (numeroEntrada == 1) { // Bloque de Tierra
             bloque = new BloqueVisual(y, x, z, tierraImg);
@@ -77,5 +86,15 @@ public class VistaJuego extends JFrame implements Observer {
             jugador = new JugadorVisual(y, x, z, jugadorImg);
             paneles.setJugador(jugador);
         }
+    }
+    private void pintarPuntero(Object[] array) {
+        int y = (int) array[1];
+        int x = (int) array[2];
+        int z = (int) array[3];
+
+        PunteroVisual puntero = null;
+        paneles.setPuntero(null);
+        puntero = new PunteroVisual(y, x, z, punteroImg);
+        paneles.setPuntero(puntero);
     }
 }

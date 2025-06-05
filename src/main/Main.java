@@ -2,6 +2,7 @@ package main;
 
 import modelo.Jugador;
 import modelo.Mapa;
+import modelo.Puntero;
 import vista.VistaJuego;
 
 import java.awt.*;
@@ -19,6 +20,7 @@ public class Main {
                     vista.setVisible(true);
                     Mapa.getMiMapa().crearMapa();
                     Jugador.getMiJugador().crearJugador();
+                    Puntero.getMiPuntero().crearPuntero();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
