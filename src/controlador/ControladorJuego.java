@@ -1,5 +1,6 @@
 package controlador;
 
+import modelo.Inventario;
 import modelo.Jugador;
 import modelo.Puntero;
 
@@ -52,6 +53,33 @@ public class ControladorJuego implements KeyListener {
         }
         else if(keyCode == KeyEvent.VK_ENTER) {
             Puntero.getMiPuntero().romperBloque();
+        }
+        else if(keyCode == KeyEvent.VK_1) {
+            Inventario.getMiInventario().seleccionarObjeto(0);
+        }
+        else if(keyCode == KeyEvent.VK_2) {
+            Inventario.getMiInventario().seleccionarObjeto(1);
+        }
+        else if(keyCode == KeyEvent.VK_3) {
+            Inventario.getMiInventario().seleccionarObjeto(2);
+        }
+        else if(keyCode == KeyEvent.VK_4) {
+            Inventario.getMiInventario().seleccionarObjeto(3);
+        }
+        else if(keyCode == KeyEvent.VK_5) {
+            Inventario.getMiInventario().seleccionarObjeto(4);
+        }
+        else if(keyCode == KeyEvent.VK_6) {
+            Inventario.getMiInventario().seleccionarObjeto(5);
+        }
+        else if(keyCode == KeyEvent.VK_7) {
+            Inventario.getMiInventario().seleccionarObjeto(6);
+        }
+        else if(keyCode == KeyEvent.VK_8) {
+            Inventario.getMiInventario().seleccionarObjeto(7);
+        }
+        else if(keyCode == KeyEvent.VK_9) {
+            Inventario.getMiInventario().seleccionarObjeto(8);
         }
     }
 

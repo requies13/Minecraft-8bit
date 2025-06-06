@@ -96,6 +96,10 @@ public class PanelIsometrico extends JPanel {
                 screenX = (jugador.getX() - jugador.getZ()) * tileWidth / 2 + offsetX;
                 screenY = (jugador.getX() + jugador.getZ()) * tileHeight / 2 - jugador.getY() * tileHeight + offsetY;
                 g.drawImage(jugador.getImagen(), screenX - tileWidth / 2, screenY - 52, tileWidth, 48, this);
+//            } else{
+//                screenX = (jugador.getX() - jugador.getZ()) * tileWidth / 2 + offsetX;
+//                screenY = (jugador.getX() + jugador.getZ()) * tileHeight / 2 - jugador.getY() * tileHeight + offsetY;
+//                g.drawImage(jugador.getImagen2(), screenX - tileWidth / 2, screenY - 52, tileWidth, 48, this);
             }
         }
     }

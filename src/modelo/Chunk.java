@@ -21,6 +21,11 @@ public class Chunk {
                             int absX = pX * 16 + x;
                             int absZ = pZ * 16 + z;
                             Mapa.getMiMapa().notificarCambio(1, y, absX, absZ);
+                        } else if (y == 0) {
+                            blocks[y][x][z] = GenBloques.getMiGenBloques().generar("Bedrock", y, x, z);
+                            int absX = pX * 16 + x;
+                            int absZ = pZ * 16 + z;
+                            Mapa.getMiMapa().notificarCambio(3, y, absX, absZ);
                         } else {
                             blocks[y][x][z] = GenBloques.getMiGenBloques().generar("Tierra2", y, x, z);
                             int absX = pX * 16 + x;
@@ -39,6 +44,11 @@ public class Chunk {
                             int absX = pX * 16 + x;
                             int absZ = pZ * 16 + z;
                             Mapa.getMiMapa().notificarCambio(0, y, absX, absZ);
+                        } else if (y == 0) {
+                            blocks[y][x][z] = GenBloques.getMiGenBloques().generar("Bedrock", y, x, z);
+                            int absX = pX * 16 + x;
+                            int absZ = pZ * 16 + z;
+                            Mapa.getMiMapa().notificarCambio(3, y, absX, absZ);
                         } else {
                             blocks[y][x][z] = GenBloques.getMiGenBloques().generar("Tierra2", y, x, z);
                             int absX = pX * 16 + x;
@@ -83,7 +93,7 @@ public class Chunk {
 
         if(blocks[localY][localX][localZ].sePuedeRomper()) {
             blocks[localY][localX][localZ] = GenBloques.getMiGenBloques().generar("Vacio", localY, localX, localZ);
+            Mapa.getMiMapa().notificarCambio(0, y, x, z);
         }
-        Mapa.getMiMapa().notificarCambio(0, y, x, z);
     }
 }

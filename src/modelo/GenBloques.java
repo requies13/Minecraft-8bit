@@ -20,6 +20,9 @@ public class GenBloques {
             else if (pTipo.equals("Tierra2")) {
                 BloqueTierra2 nuevo =new BloqueTierra2(pY,pX,pZ);
                 return nuevo;
+            } else if (pTipo.equals("Bedrock")) {
+                BloqueBedrock nuevo =new BloqueBedrock(pY,pX,pZ);
+                return nuevo;
             }
             else return null;
     }

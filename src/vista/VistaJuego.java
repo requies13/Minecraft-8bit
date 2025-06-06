@@ -1,6 +1,7 @@
 package vista;
 
 import controlador.ControladorJuego;
+import modelo.Inventario;
 import modelo.Jugador;
 import modelo.Mapa;
 import modelo.Puntero;
@@ -13,17 +14,22 @@ import java.util.Observer;
 
 public class VistaJuego extends JFrame implements Observer {
     private static final long serialVersionUID = -5000978209518964435L;
+    private JPanel contenedor = new JPanel(new BorderLayout());
     private PanelIsometrico paneles;
+    private InventarioVisual panelInventario;
     private Image tierraImg = new ImageIcon(getClass().getClassLoader().getResource("img/tierra.png")).getImage();
     private Image tierra2Img = new ImageIcon(getClass().getClassLoader().getResource("img/tierra2.png")).getImage();
     private Image jugadorImg = new ImageIcon(getClass().getClassLoader().getResource("img/jugador.png")).getImage();
+    private Image jugador2Img = new ImageIcon(getClass().getClassLoader().getResource("img/traslucido.png")).getImage();
     private Image punteroImg = new ImageIcon(getClass().getClassLoader().getResource("img/opcion1.png")).getImage();
+    private Image bedrockImg = new ImageIcon(getClass().getClassLoader().getResource("img/bedrock.png")).getImage();
 
     public VistaJuego() {
         this.addKeyListener(ControladorJuego.getControlador());  		// Agregar el KeyListener al JFrame en lugar del JPanel
         Mapa.getMiMapa().addObserver(this);
         Jugador.getMiJugador().addObserver(this);
         Puntero.getMiPuntero().addObserver(this);
+        Inventario.getMiInventario().addObserver(this);
         setTitle("Minecraft-8bit");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
@@ -32,8 +38,19 @@ public class VistaJuego extends JFrame implements Observer {
 
     private void crearPaneles() {
         paneles = new PanelIsometrico();
-        add(paneles);
+        contenedor.add(paneles, BorderLayout.CENTER);
         paneles.setPreferredSize(new Dimension(1200, 800));
+
+        panelInventario = new InventarioVisual();
+        panelInventario.setPreferredSize(new Dimension(432, 48));
+        JPanel panelInventarioCentrado = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        panelInventarioCentrado.setOpaque(false);  // Sin fondo
+        panelInventarioCentrado.add(panelInventario);
+
+        contenedor.add(panelInventarioCentrado, BorderLayout.NORTH);
+
+        add(contenedor);
+
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
@@ -50,6 +67,10 @@ public class VistaJuego extends JFrame implements Observer {
             this.pintarJugador(array);
         } else if (quienLlama == 3) {
             this.pintarPuntero(array);
+        } else if (quienLlama == 4) {
+            this.pintarInventario(array);
+        } else if (quienLlama == 5) {
+            this.pintarSeleccion(array);
         }
     }
     private void pintarMapa(Object[] array) {
@@ -73,6 +94,10 @@ public class VistaJuego extends JFrame implements Observer {
             bloque = new BloqueVisual(y, x, z, tierra2Img);
             paneles.agregarBloque(bloque);
         }
+        else if (numeroEntrada == 3) { // Bloque de Bedrock
+            bloque = new BloqueVisual(y, x, z, bedrockImg);
+            paneles.agregarBloque(bloque);
+        }
     }
     private void pintarJugador(Object[] array) {
         int numeroEntrada = (int) array[1];
@@ -83,7 +108,7 @@ public class VistaJuego extends JFrame implements Observer {
         paneles.setJugador(null);
 
         if (numeroEntrada == 0) { // Spawneo
-            jugador = new JugadorVisual(y, x, z, jugadorImg);
+            jugador = new JugadorVisual(y, x, z, jugadorImg,jugador2Img);
             paneles.setJugador(jugador);
         }
     }
@@ -96,5 +121,26 @@ public class VistaJuego extends JFrame implements Observer {
         paneles.setPuntero(null);
         puntero = new PunteroVisual(y, x, z, punteroImg);
         paneles.setPuntero(puntero);
+    }
+    private void pintarInventario(Object[] array) {
+        int seleccionado = (int) array[1];
+        BloqueVisual bloque = null;
+
+        if (seleccionado == 0) { // Bloque de Tierra
+            bloque = new BloqueVisual(0, 0, 0, tierraImg);
+            panelInventario.setBloque(seleccionado,bloque);
+        }
+        else if (seleccionado == 1) { // Bloque de Tierra2
+            bloque = new BloqueVisual(0, 0, 0, tierra2Img);
+            panelInventario.setBloque(seleccionado,bloque);
+        }
+        else if (seleccionado == 2) { // Bloque de Bedrock
+            bloque = new BloqueVisual(0, 0, 0, bedrockImg);
+            panelInventario.setBloque(seleccionado,bloque);
+        }
+    }
+    private void pintarSeleccion(Object[] array) {
+        int seleccionado = (int) array[1];
+        panelInventario.seleccionar(seleccionado);
     }
 }

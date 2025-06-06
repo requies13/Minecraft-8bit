@@ -1,5 +1,6 @@
 package main;
 
+import modelo.Inventario;
 import modelo.Jugador;
 import modelo.Mapa;
 import modelo.Puntero;
@@ -21,6 +22,7 @@ public class Main {
                     Mapa.getMiMapa().crearMapa();
                     Jugador.getMiJugador().crearJugador();
                     Puntero.getMiPuntero().crearPuntero();
+                    Inventario.getMiInventario().crearInventario();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
