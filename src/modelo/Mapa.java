@@ -62,6 +62,14 @@ public class Mapa extends Observable {
         int nZ = z / 16;
         tablero[nX][nZ].romperBloque(y,x,z);
     }
+    public void ponerBloque(int y, int x, int z) {
+        int nX = x / 16;
+        int nY = y / 16;
+        int nZ = z / 16;
+        if (nX >= 0 && nX < chunkX && nZ >= 0 && nZ < chunkZ) {
+            tablero[nX][nZ].ponerBloque(y,x,z);
+        }
+    }
 
     public void notificarCambio(int tipoBloque, int y, int x, int z) {
         setChanged();

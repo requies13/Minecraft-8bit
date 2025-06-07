@@ -50,13 +50,20 @@ public class InventarioVisual extends JPanel {
             }
 
             if (i == seleccionado) {
-                // Recuadro de selección grueso
-                g2.setColor(new Color(0, 255, 0));
-                g2.setStroke(new BasicStroke(4f)); // Grosor del borde
-                g2.drawRoundRect(slotX + 1, slotY + 2, 38, 36, 8, 8); // Un poco más grande que el slot
+                if(seleccionado == 8){
+                    // Recuadro de selección grueso
+                    g2.setColor(new Color(0, 255, 0));
+                    g2.setStroke(new BasicStroke(4f)); // Grosor del borde
+                    g2.drawRoundRect(slotX + 1, slotY + 2, 35, 36, 8, 8); // Un poco más grande que el slot
+                }
+                else{
+                    // Recuadro de selección grueso
+                    g2.setColor(new Color(0, 255, 0));
+                    g2.setStroke(new BasicStroke(4f)); // Grosor del borde
+                    g2.drawRoundRect(slotX + 1, slotY + 2, 38, 36, 8, 8); // Un poco más grande que el slot
+                }
             }
         }
-
         g2.dispose();
     }
 }

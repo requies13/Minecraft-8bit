@@ -90,6 +90,9 @@ public class Puntero extends Observable{
     public void romperBloque() {
         Mapa.getMiMapa().romperBloque(y,x,z);
     }
+    public void ponerBloque() {
+        Mapa.getMiMapa().ponerBloque(y,x,z);
+    }
 
 
     private void notificarPuntero() {

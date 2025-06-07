@@ -15,6 +15,9 @@ public class Inventario extends Observable{
     }
 
     public void crearInventario() {
+        lista[seleccionado] = new BloqueTierra(0,0,0);
+        lista[seleccionado + 1] = new BloqueTierra2(0,0,0);
+        lista[seleccionado + 2] = new BloqueBedrock(0,0,0);
         notificarInventario(seleccionado);
         notificarInventario(seleccionado + 1);
         notificarInventario(seleccionado + 2);
@@ -22,6 +25,9 @@ public class Inventario extends Observable{
     public void seleccionarObjeto(int numero){
         seleccionado = numero;
         notificarCambio(seleccionado);
+    }
+    public Bloque getObjeto(){
+        return lista[seleccionado];
     }
 
     private void notificarInventario(int pos) {

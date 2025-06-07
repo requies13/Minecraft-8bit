@@ -6,25 +6,19 @@ public class Bloque extends Observable{
     private int y; //Altura
     private int x; //Ancho
     private int z; //Profundidad
+    private int tipoBloque;
 
-    protected Bloque(int pY, int pX, int pZ) {
+    protected Bloque(int pY, int pX, int pZ, int pTipoBloque) {
         y=pY;
         x=pX;
         z=pZ;
+        tipoBloque=pTipoBloque;
     }
     protected int getX() {return x;}
     protected int getY() {return y;}
     protected int getZ() {return z;}
 
-    protected void setX(int pX) {
-            this.x = pX;
-        }
-    protected void setY(int pY) {
-            this.y = pY;
-        }
-    protected void setZ(int pZ) {
-        this.z = pZ;
-    }
+    public int getTipoBloque() {return tipoBloque;}
 
     public boolean sePuedeRomper(){
         return true;

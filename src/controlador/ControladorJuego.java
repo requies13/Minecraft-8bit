@@ -81,6 +81,9 @@ public class ControladorJuego implements KeyListener {
         else if(keyCode == KeyEvent.VK_9) {
             Inventario.getMiInventario().seleccionarObjeto(8);
         }
+        else if(keyCode == KeyEvent.VK_SPACE) {
+            Puntero.getMiPuntero().ponerBloque();
+        }
     }
 
     @Override

@@ -15,22 +15,22 @@ public class Chunk {
                             blocks[y][x][z] = GenBloques.getMiGenBloques().generar("Vacio", y, x, z);
                             int absX = pX * 16 + x;
                             int absZ = pZ * 16 + z;
-                            Mapa.getMiMapa().notificarCambio(0, y, absX, absZ);
+                            Mapa.getMiMapa().notificarCambio(blocks[y][x][z].getTipoBloque(), y, absX, absZ);
                         } else if (y == 9) {
                             blocks[y][x][z] = GenBloques.getMiGenBloques().generar("Tierra", y, x, z);
                             int absX = pX * 16 + x;
                             int absZ = pZ * 16 + z;
-                            Mapa.getMiMapa().notificarCambio(1, y, absX, absZ);
+                            Mapa.getMiMapa().notificarCambio(blocks[y][x][z].getTipoBloque(), y, absX, absZ);
                         } else if (y == 0) {
                             blocks[y][x][z] = GenBloques.getMiGenBloques().generar("Bedrock", y, x, z);
                             int absX = pX * 16 + x;
                             int absZ = pZ * 16 + z;
-                            Mapa.getMiMapa().notificarCambio(3, y, absX, absZ);
+                            Mapa.getMiMapa().notificarCambio(blocks[y][x][z].getTipoBloque(), y, absX, absZ);
                         } else {
                             blocks[y][x][z] = GenBloques.getMiGenBloques().generar("Tierra2", y, x, z);
                             int absX = pX * 16 + x;
                             int absZ = pZ * 16 + z;
-                            Mapa.getMiMapa().notificarCambio(2, y, absX, absZ);
+                            Mapa.getMiMapa().notificarCambio(blocks[y][x][z].getTipoBloque(), y, absX, absZ);
                         }
                     }
                 }
@@ -43,17 +43,17 @@ public class Chunk {
                             blocks[y][x][z] = GenBloques.getMiGenBloques().generar("Vacio", y, x, z);
                             int absX = pX * 16 + x;
                             int absZ = pZ * 16 + z;
-                            Mapa.getMiMapa().notificarCambio(0, y, absX, absZ);
+                            Mapa.getMiMapa().notificarCambio(blocks[y][x][z].getTipoBloque(), y, absX, absZ);
                         } else if (y == 0) {
                             blocks[y][x][z] = GenBloques.getMiGenBloques().generar("Bedrock", y, x, z);
                             int absX = pX * 16 + x;
                             int absZ = pZ * 16 + z;
-                            Mapa.getMiMapa().notificarCambio(3, y, absX, absZ);
+                            Mapa.getMiMapa().notificarCambio(blocks[y][x][z].getTipoBloque(), y, absX, absZ);
                         } else {
                             blocks[y][x][z] = GenBloques.getMiGenBloques().generar("Tierra2", y, x, z);
                             int absX = pX * 16 + x;
                             int absZ = pZ * 16 + z;
-                            Mapa.getMiMapa().notificarCambio(2, y, absX, absZ);
+                            Mapa.getMiMapa().notificarCambio(blocks[y][x][z].getTipoBloque(), y, absX, absZ);
                         }
                     }
                 }
@@ -93,7 +93,20 @@ public class Chunk {
 
         if(blocks[localY][localX][localZ].sePuedeRomper()) {
             blocks[localY][localX][localZ] = GenBloques.getMiGenBloques().generar("Vacio", localY, localX, localZ);
-            Mapa.getMiMapa().notificarCambio(0, y, x, z);
+            Mapa.getMiMapa().notificarCambio(blocks[localY][localX][localZ].getTipoBloque(), y, x, z);
+        }
+    }
+    public void ponerBloque(int y, int x, int z) {
+
+        int localX = x % 16;
+        int localY = y % 16;
+        int localZ = z % 16;
+
+        if(blocks[localY][localX][localZ] instanceof BloqueVacio) {
+            Bloque b = Inventario.getMiInventario().getObjeto();
+            String bloqueAGenerar = GenBloques.getMiGenBloques().queBloqueEs(b);
+            blocks[localY][localX][localZ] = GenBloques.getMiGenBloques().generar(bloqueAGenerar, localY, localX, localZ);
+            Mapa.getMiMapa().notificarCambio(blocks[localY][localX][localZ].getTipoBloque(), y, x, z);
         }
     }
 }

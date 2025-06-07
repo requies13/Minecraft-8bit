@@ -26,4 +26,16 @@ public class GenBloques {
             }
             else return null;
     }
+    public String queBloqueEs(Bloque bloque) {
+        if (bloque instanceof BloqueVacio) {
+            return "Vacio";
+        } else if (bloque instanceof BloqueTierra) {
+            return "Tierra";
+        } else if (bloque instanceof BloqueTierra2) {
+            return "Tierra2";
+        } else if (bloque instanceof BloqueBedrock) {
+            return "Bedrock";
+        }
+        return null;
+    }
 }
