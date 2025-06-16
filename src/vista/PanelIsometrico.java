@@ -64,6 +64,13 @@ public class PanelIsometrico extends JPanel {
         int offsetX = getWidth() / 2;
         int offsetY = getHeight() / 2;
 
+        bloques.sort((b1, b2) -> {
+            int b1Order = (b1.getX() + b1.getZ()) + b1.getY() * 1000;
+            int b2Order = (b2.getX() + b2.getZ()) + b2.getY() * 1000;
+            return Integer.compare(b1Order, b2Order);
+        });
+
+
         for (BloqueVisual b : bloques) {
             int screenX = (b.getX() - b.getZ()) * tileWidth / 2 + offsetX;
             int screenY = (b.getX() + b.getZ()) * tileHeight / 2 - b.getY() * tileHeight + offsetY;
