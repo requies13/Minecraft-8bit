@@ -29,6 +29,18 @@ public class Jugador extends Observable{
                                 x = x - 1;
                                 System.out.println("left");
                                 notificarJugador(1);
+                        } else if(Mapa.getMiMapa().hayBloquesEncima(y,x-1,z)) {
+                                if(!Mapa.getMiMapa().esBloqueSolido(y, x - 1, z)){
+                                        y = y + 1;
+                                }
+                                while (Mapa.getMiMapa().esBloqueSolido(y, x - 1, z) && i < maxAltura) {
+                                        y = y + 1;
+                                        i++;
+                                }
+                                y = y - 1;
+                                x = x - 1;
+                                System.out.println("left");
+                                notificarJugador(1);
                         } else {
                                 while (Mapa.getMiMapa().esBloqueSolido(y, x - 1, z) && i < maxAltura) {
                                         y = y + 1;
