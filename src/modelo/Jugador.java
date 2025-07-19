@@ -4,7 +4,7 @@ import java.util.Observable;
 public class Jugador extends Observable{
         private static Jugador miJugador = new Jugador();
         private int x, y, z;
-        private int maxAltura = 10;
+        private int maxAltura = 16;
 
         private Jugador() {}
         public static Jugador getMiJugador() {
@@ -19,19 +19,20 @@ public class Jugador extends Observable{
         }
 
         public void movimientoL() {
-                int i = 1;
+                int i = y;
                 if (Mapa.getMiMapa().hayBloque(y,x-1,z)){
                         if(!Mapa.getMiMapa().hayBloquesEncima(y,x-1,z)) {
                                 while (!Mapa.getMiMapa().esBloqueSolido(y, x - 1, z) && i < maxAltura) {
                                         y = y - 1;
-                                        i++;
+                                        i--;
                                 }
                                 x = x - 1;
                                 System.out.println("left");
                                 notificarJugador(1);
-                        } else if(Mapa.getMiMapa().hayBloquesEncima(y,x-1,z)) {
+                        } else if(Mapa.getMiMapa().hayBloquesEncima(y,x-1,z) && y < maxAltura) {
                                 if(!Mapa.getMiMapa().esBloqueSolido(y, x - 1, z)){
                                         y = y + 1;
+                                        i = y;
                                 }
                                 while (Mapa.getMiMapa().esBloqueSolido(y, x - 1, z) && i < maxAltura) {
                                         y = y + 1;
@@ -55,13 +56,26 @@ public class Jugador extends Observable{
         }
 
         public void movimientoR() {
-                int i = 1;
-                if (Mapa.getMiMapa().hayBloque(y,x+1,z)) {
-                        if (!Mapa.getMiMapa().hayBloquesEncima(y, x + 1, z)) {
+                int i = y;
+                if (Mapa.getMiMapa().hayBloque(y,x+1,z)){
+                        if(!Mapa.getMiMapa().hayBloquesEncima(y,x+1,z)) {
                                 while (!Mapa.getMiMapa().esBloqueSolido(y, x + 1, z) && i < maxAltura) {
                                         y = y - 1;
+                                        i--;
+                                }
+                                x = x + 1;
+                                System.out.println("right");
+                                notificarJugador(2);
+                        } else if(Mapa.getMiMapa().hayBloquesEncima(y,x+1,z) && y < maxAltura) {
+                                if(!Mapa.getMiMapa().esBloqueSolido(y, x + 1, z)){
+                                        y = y + 1;
+                                        i = y;
+                                }
+                                while (Mapa.getMiMapa().esBloqueSolido(y, x + 1, z) && i < maxAltura) {
+                                        y = y + 1;
                                         i++;
                                 }
+                                y = y - 1;
                                 x = x + 1;
                                 System.out.println("right");
                                 notificarJugador(2);
@@ -79,18 +93,31 @@ public class Jugador extends Observable{
         }
 
         public void movimientoU() {
-                int i = 1;
-                if (Mapa.getMiMapa().hayBloque(y,x,z-1)) {
-                        if (!Mapa.getMiMapa().hayBloquesEncima(y, x, z-1)) {
-                                while (!Mapa.getMiMapa().esBloqueSolido(y, x, z-1) && i < maxAltura) {
+                int i = y;
+                if (Mapa.getMiMapa().hayBloque(y,x,z-1)){
+                        if(!Mapa.getMiMapa().hayBloquesEncima(y,x,z-1)) {
+                                while (!Mapa.getMiMapa().esBloqueSolido(y,x,z-1) && i < maxAltura) {
                                         y = y - 1;
-                                        i++;
+                                        i--;
                                 }
                                 z=z-1;
                                 System.out.println("up");
                                 notificarJugador(3);
+                        } else if(Mapa.getMiMapa().hayBloquesEncima(y,x,z-1) && y < maxAltura) {
+                                if(!Mapa.getMiMapa().esBloqueSolido(y,x,z-1)){
+                                        y = y + 1;
+                                        i = y;
+                                }
+                                while (Mapa.getMiMapa().esBloqueSolido(y,x,z-1) && i < maxAltura) {
+                                        y = y + 1;
+                                        i++;
+                                }
+                                y = y - 1;
+                                z=z-1;
+                                System.out.println("up");
+                                notificarJugador(3);
                         } else {
-                                while (Mapa.getMiMapa().esBloqueSolido(y, x, z-1) && i < maxAltura) {
+                                while (Mapa.getMiMapa().esBloqueSolido(y,x,z-1) && i < maxAltura) {
                                         y = y + 1;
                                         i++;
                                 }
@@ -103,18 +130,31 @@ public class Jugador extends Observable{
         }
 
         public void movimientoD() {
-                int i = 1;
-                if (Mapa.getMiMapa().hayBloque(y,x,z+1)) {
-                        if (!Mapa.getMiMapa().hayBloquesEncima(y, x, z+1)) {
-                                while (!Mapa.getMiMapa().esBloqueSolido(y, x, z+1) && i < maxAltura) {
+                int i = y;
+                if (Mapa.getMiMapa().hayBloque(y,x,z+1)){
+                        if(!Mapa.getMiMapa().hayBloquesEncima(y,x,z+1)) {
+                                while (!Mapa.getMiMapa().esBloqueSolido(y,x,z+1) && i < maxAltura) {
                                         y = y - 1;
-                                        i++;
+                                        i--;
                                 }
                                 z=z+1;
                                 System.out.println("down");
                                 notificarJugador(4);
+                        } else if(Mapa.getMiMapa().hayBloquesEncima(y,x,z+1) && y < maxAltura) {
+                                if(!Mapa.getMiMapa().esBloqueSolido(y,x,z+1)){
+                                        y = y + 1;
+                                        i = y;
+                                }
+                                while (Mapa.getMiMapa().esBloqueSolido(y,x,z+1) && i < maxAltura) {
+                                        y = y + 1;
+                                        i++;
+                                }
+                                y = y - 1;
+                                z=z+1;
+                                System.out.println("down");
+                                notificarJugador(4);
                         } else {
-                                while (Mapa.getMiMapa().esBloqueSolido(y, x, z+1) && i < maxAltura) {
+                                while (Mapa.getMiMapa().esBloqueSolido(y,x,z+1) && i < maxAltura) {
                                         y = y + 1;
                                         i++;
                                 }
@@ -125,6 +165,16 @@ public class Jugador extends Observable{
                         }
                 }
         }
+
+        public void movimientoBloqueRoto() {
+                if(this.y != 0){
+                        while (!Mapa.getMiMapa().esBloqueSolido(y,x,z) && y > 0) {
+                                y = y - 1;
+                        }
+                }
+                notificarJugador(5);
+        }
+
         public int getX() {return x;}
 
         public int getY() {return y;}
@@ -136,5 +186,4 @@ public class Jugador extends Observable{
                 setChanged();
                 notifyObservers(new Object[] {2, 0, y, x, z});
         }
-
 }

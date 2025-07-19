@@ -68,7 +68,9 @@ public class Chunk {
         int localY = y % 16;
         int localZ = z % 16;
 
-        if(blocks[localY+1][localX][localZ] instanceof BloqueVacio) {
+        if(localY == 15){
+            return false;
+        } else if (blocks[localY+1][localX][localZ] instanceof BloqueVacio) {
             return false;
         }
         return true;
@@ -93,6 +95,7 @@ public class Chunk {
 
         if(blocks[localY][localX][localZ].sePuedeRomper()) {
             blocks[localY][localX][localZ] = GenBloques.getMiGenBloques().generar("Vacio", localY, localX, localZ);
+            Jugador.getMiJugador().movimientoBloqueRoto();
             Mapa.getMiMapa().notificarCambio(blocks[localY][localX][localZ].getTipoBloque(), y, x, z);
         }
     }

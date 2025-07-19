@@ -39,7 +39,7 @@ public class VistaJuego extends JFrame implements Observer {
     private void crearPaneles() {
         paneles = new PanelIsometrico();
         contenedor.add(paneles, BorderLayout.CENTER);
-        paneles.setPreferredSize(new Dimension(1200, 800));
+        paneles.setPreferredSize(new Dimension(1200, 600));
 
         panelInventario = new InventarioVisual();
         panelInventario.setPreferredSize(new Dimension(432, 48));

@@ -1,9 +1,7 @@
 package main;
 
-import modelo.Inventario;
-import modelo.Jugador;
-import modelo.Mapa;
-import modelo.Puntero;
+import modelo.*;
+import vista.PantallaInicio;
 import vista.VistaJuego;
 
 import java.awt.*;
@@ -15,14 +13,8 @@ public class Main {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-
-                    VistaJuego vista = new VistaJuego();
-                    vista.setSize(1200, 800);
-                    vista.setVisible(true);
-                    Mapa.getMiMapa().crearMapa();
-                    Jugador.getMiJugador().crearJugador();
-                    Puntero.getMiPuntero().crearPuntero();
-                    Inventario.getMiInventario().crearInventario();
+                    PantallaInicio inicio = new PantallaInicio();
+                    inicio.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

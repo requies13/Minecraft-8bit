@@ -76,7 +76,7 @@ public class Puntero extends Observable{
         notificarPuntero();
     }
     public void movimientoU() {
-        if(Jugador.getMiJugador().getY() + 3 > this.y){
+        if(Jugador.getMiJugador().getY() + 3 > this.y && Jugador.getMiJugador().getY() + 3 < 16){
             y++;
         }
         notificarPuntero();
@@ -91,7 +91,9 @@ public class Puntero extends Observable{
         Mapa.getMiMapa().romperBloque(y,x,z);
     }
     public void ponerBloque() {
-        Mapa.getMiMapa().ponerBloque(y,x,z);
+        if(Jugador.getMiJugador().getX() != x || Jugador.getMiJugador().getZ() != z) {
+            Mapa.getMiMapa().ponerBloque(y,x,z);
+        }
     }
 
 
