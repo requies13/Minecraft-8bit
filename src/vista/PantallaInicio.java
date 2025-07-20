@@ -7,11 +7,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.TimerTask;
+import java.util.Timer;
 
 public class PantallaInicio extends JFrame implements Observer {
     private static final long serialVersionUID = -9171935669482541465L;
 
     private JPanel panelMenu;
+    private JLabel titulo;
+    private JLabel textoMenu;
 
     public PantallaInicio() {
         setTitle("Minecraft-8bit");
@@ -45,12 +49,48 @@ public class PantallaInicio extends JFrame implements Observer {
         panelMenu.setOpaque(false); // Transparente para ver el fondo
         panelMenu.setBounds(0, 0, 960, 600); // Ocupa toda la ventana
         panelMenu.setLayout(null); // Puedes añadir botones aquí
+//        panelMenu.add(getTitulo());
+        panelMenu.add(getTextoMenu());
+        this.startMultiColorText(); //Cambia el color del texto
 
         // Añadir el panelMenu al fondo
         fondo.add(panelMenu);
 
         // Asignar fondo como contenido del frame
         setContentPane(fondo);
+    }
+//    private JLabel getTitulo() {
+//        if (titulo == null) {
+//            titulo = new JLabel("");
+//            titulo.setBounds(163, 11, 384, 107);
+//            this.titulo.setIcon(new ImageIcon(this.getClass().getResource("imagenes/title.png")));
+//
+//        }
+//        return titulo;
+//    }
+    private JLabel getTextoMenu() {
+        if (textoMenu == null) {
+            textoMenu = new JLabel("<html><div style='text-align: center;'><br>Press spacebar to start!</div></html>");
+            textoMenu.setFont(new Font("Consolas", Font.BOLD, 25));
+            textoMenu.setHorizontalAlignment(SwingConstants.CENTER);
+            textoMenu.setBounds(48, 353, 800, 140);
+        }
+        return textoMenu;
+    }
+    private void startMultiColorText() { //Solo cambia el color del texto
+        Timer timer = new Timer();
+        Color[] colors = {Color.RED, Color.BLUE, Color.BLACK};
+        final int[] index = {0}; // Usamos un array para modificar la variable dentro del Timer
+
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                SwingUtilities.invokeLater(() -> {
+                    textoMenu.setForeground(colors[index[0]]);
+                    index[0] = (index[0] + 1) % colors.length; // Cicla entre los colores
+                });
+            }
+        }, 0, 500); // Cambia de color cada 500ms
     }
 
     @Override

@@ -7,7 +7,6 @@ import modelo.Mapa;
 import modelo.Puntero;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
@@ -17,6 +16,8 @@ public class VistaJuego extends JFrame implements Observer {
     private JPanel contenedor = new JPanel(new BorderLayout());
     private PanelIsometrico paneles;
     private InventarioVisual panelInventario;
+    private JLabel jugadorCoor;
+    private JLabel punteroCoor;
     private Image tierraImg = new ImageIcon(getClass().getClassLoader().getResource("img/tierra.png")).getImage();
     private Image tierra2Img = new ImageIcon(getClass().getClassLoader().getResource("img/tierra2.png")).getImage();
     private Image jugadorImg = new ImageIcon(getClass().getClassLoader().getResource("img/jugador.png")).getImage();
@@ -45,15 +46,44 @@ public class VistaJuego extends JFrame implements Observer {
         panelInventario.setPreferredSize(new Dimension(432, 48));
         JPanel panelInventarioCentrado = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
         panelInventarioCentrado.setOpaque(false);  // Sin fondo
+        panelInventarioCentrado.add(getJugadorCoor());
+        JPanel espacio = new JPanel();
+        espacio.setPreferredSize(new Dimension(50, 20)); // ancho x alto
+        espacio.setOpaque(false); // Sin fondo
+        panelInventarioCentrado.add(espacio);
         panelInventarioCentrado.add(panelInventario);
+        JPanel espacio2 = new JPanel();
+        espacio2.setPreferredSize(new Dimension(50, 20)); // ancho x alto
+        espacio2.setOpaque(false); // Sin fondo
+        panelInventarioCentrado.add(espacio2);
+        panelInventarioCentrado.add(getPunteroCoor());
 
         contenedor.add(panelInventarioCentrado, BorderLayout.NORTH);
+
 
         add(contenedor);
 
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
+    }
+    private JLabel getJugadorCoor() {
+        if (jugadorCoor == null) {
+            jugadorCoor = new JLabel("<html><div style='text-align: center;'>Player Coordinates <br>xyz: 0 / 0 / 0</div></html>");
+            jugadorCoor.setFont(new Font("Consolas", Font.BOLD, 25));
+            jugadorCoor.setHorizontalAlignment(SwingConstants.CENTER);
+            jugadorCoor.setBounds(20, 150, 200, 140);
+        }
+        return jugadorCoor;
+    }
+    private JLabel getPunteroCoor() {
+        if (punteroCoor == null) {
+            punteroCoor = new JLabel("<html><div style='text-align: center;'>Pointer Coordinates <br>xyz: 0 / 0 / 0</div></html>");
+            punteroCoor.setFont(new Font("Consolas", Font.BOLD, 25));
+            punteroCoor.setHorizontalAlignment(SwingConstants.CENTER);
+            punteroCoor.setBounds(20, 150, 200, 140);
+        }
+        return punteroCoor;
     }
 
     @Override
@@ -111,6 +141,7 @@ public class VistaJuego extends JFrame implements Observer {
             jugador = new JugadorVisual(y, x, z, jugadorImg,jugador2Img);
             paneles.setJugador(jugador);
         }
+        this.cambiarCoordenadasJugador(y,x,z);
     }
     private void pintarPuntero(Object[] array) {
         int y = (int) array[1];
@@ -121,6 +152,7 @@ public class VistaJuego extends JFrame implements Observer {
         paneles.setPuntero(null);
         puntero = new PunteroVisual(y, x, z, punteroImg);
         paneles.setPuntero(puntero);
+        this.cambiarCoordenadasPuntero(y,x,z);
     }
     private void pintarInventario(Object[] array) {
         int seleccionado = (int) array[1];
@@ -142,5 +174,19 @@ public class VistaJuego extends JFrame implements Observer {
     private void pintarSeleccion(Object[] array) {
         int seleccionado = (int) array[1];
         panelInventario.seleccionar(seleccionado);
+    }
+    private void cambiarCoordenadasJugador(int y, int x, int z) {
+        String nuevoTexto = String.format(
+                "<html><div style='text-align: center;'>Player Coordinates <br>xyz: %d / %d / %d</div></html>",
+                x, y, z
+        );
+        jugadorCoor.setText(nuevoTexto);
+    }
+    private void cambiarCoordenadasPuntero(int y, int x, int z) {
+        String nuevoTexto = String.format(
+                "<html><div style='text-align: center;'>Pointer Coordinates <br>xyz: %d / %d / %d</div></html>",
+                x, y, z
+        );
+        punteroCoor.setText(nuevoTexto);
     }
 }

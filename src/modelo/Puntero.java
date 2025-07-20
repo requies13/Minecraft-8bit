@@ -76,7 +76,7 @@ public class Puntero extends Observable{
         notificarPuntero();
     }
     public void movimientoU() {
-        if(Jugador.getMiJugador().getY() + 3 > this.y && Jugador.getMiJugador().getY() + 3 < 16){
+        if(Jugador.getMiJugador().getY() + 3 > this.y && Jugador.getMiJugador().getY() + 1 < 16){
             y++;
         }
         notificarPuntero();

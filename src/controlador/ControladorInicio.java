@@ -27,6 +27,8 @@ public class ControladorInicio implements KeyListener {
         int keyCode = e.getKeyCode();
         if (keyCode == KeyEvent.VK_SPACE) {
             Inicio.getMiInicio().Iniciar();
+        } else if(keyCode == KeyEvent.VK_ESCAPE) {
+            System.exit(0);
         }
     }
 
