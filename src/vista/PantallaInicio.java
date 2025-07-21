@@ -38,7 +38,7 @@ public class PantallaInicio extends JFrame implements Observer {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                Image background = new ImageIcon(getClass().getClassLoader().getResource("img/fondo.png")).getImage();
+                Image background = new ImageIcon(getClass().getClassLoader().getResource("img/fondo2.png")).getImage();
                 g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
             }
         };
@@ -49,7 +49,7 @@ public class PantallaInicio extends JFrame implements Observer {
         panelMenu.setOpaque(false); // Transparente para ver el fondo
         panelMenu.setBounds(0, 0, 960, 600); // Ocupa toda la ventana
         panelMenu.setLayout(null); // Puedes añadir botones aquí
-//        panelMenu.add(getTitulo());
+        //panelMenu.add(getTitulo());
         panelMenu.add(getTextoMenu());
         this.startMultiColorText(); //Cambia el color del texto
 
@@ -59,15 +59,15 @@ public class PantallaInicio extends JFrame implements Observer {
         // Asignar fondo como contenido del frame
         setContentPane(fondo);
     }
-//    private JLabel getTitulo() {
-//        if (titulo == null) {
-//            titulo = new JLabel("");
-//            titulo.setBounds(163, 11, 384, 107);
-//            this.titulo.setIcon(new ImageIcon(this.getClass().getResource("imagenes/title.png")));
-//
-//        }
-//        return titulo;
-//    }
+    private JLabel getTitulo() {
+        if (titulo == null) {
+            titulo = new JLabel("");
+            titulo.setBounds(163, 11, getWidth(), getHeight());
+            this.titulo.setIcon(new ImageIcon(this.getClass().getResource("/img/titulo.png")));
+
+        }
+        return titulo;
+    }
     private JLabel getTextoMenu() {
         if (textoMenu == null) {
             textoMenu = new JLabel("<html><div style='text-align: center;'><br>Press spacebar to start!</div></html>");

@@ -38,35 +38,56 @@ public class VistaJuego extends JFrame implements Observer {
     }
 
     private void crearPaneles() {
-        paneles = new PanelIsometrico();
-        contenedor.add(paneles, BorderLayout.CENTER);
-        paneles.setPreferredSize(new Dimension(1200, 600));
+        // Panel de fondo con imagen
+        JPanel fondo = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Image background = new ImageIcon(getClass().getClassLoader().getResource("img/cielo.jpg")).getImage();
+                g.drawImage(background, 0, 0, getWidth(), getHeight(), this); // Fondo escala a todo el panel
+            }
+        };
+        fondo.setLayout(new BorderLayout());
+        setContentPane(fondo); // Establece fondo como base de la ventana
 
+        // Panel contenedor transparente
+        contenedor = new JPanel(new BorderLayout());
+        contenedor.setOpaque(false); // Deja ver el fondo
+        fondo.add(contenedor, BorderLayout.CENTER); // Añade contenedor al fondo
+
+        // Panel principal (juego)
+        paneles = new PanelIsometrico();
+        paneles.setOpaque(false); // Asegúrate que sea transparente si es necesario
+        contenedor.add(paneles, BorderLayout.CENTER);
+
+        // Inventario y coordenadas
         panelInventario = new InventarioVisual();
         panelInventario.setPreferredSize(new Dimension(432, 48));
+
         JPanel panelInventarioCentrado = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-        panelInventarioCentrado.setOpaque(false);  // Sin fondo
+        panelInventarioCentrado.setOpaque(false);
         panelInventarioCentrado.add(getJugadorCoor());
+
         JPanel espacio = new JPanel();
-        espacio.setPreferredSize(new Dimension(50, 20)); // ancho x alto
-        espacio.setOpaque(false); // Sin fondo
+        espacio.setPreferredSize(new Dimension(50, 20));
+        espacio.setOpaque(false);
         panelInventarioCentrado.add(espacio);
         panelInventarioCentrado.add(panelInventario);
+
         JPanel espacio2 = new JPanel();
-        espacio2.setPreferredSize(new Dimension(50, 20)); // ancho x alto
-        espacio2.setOpaque(false); // Sin fondo
+        espacio2.setPreferredSize(new Dimension(50, 20));
+        espacio2.setOpaque(false);
         panelInventarioCentrado.add(espacio2);
         panelInventarioCentrado.add(getPunteroCoor());
 
         contenedor.add(panelInventarioCentrado, BorderLayout.NORTH);
 
-
-        add(contenedor);
-
-        pack();
+        // Establece tamaño y muestra ventana
+        setSize(1280, 720); // Puedes usar el tamaño que prefieras
         setLocationRelativeTo(null);
         setVisible(true);
     }
+
     private JLabel getJugadorCoor() {
         if (jugadorCoor == null) {
             jugadorCoor = new JLabel("<html><div style='text-align: center;'>Player Coordinates <br>xyz: 0 / 0 / 0</div></html>");
