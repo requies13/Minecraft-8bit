@@ -1,5 +1,5 @@
 # JAVAC=/usr/bin/javac
-JAVA_DIR=/home/marco/Escritorio/Programas/jdk/bin/
+JAVA_DIR=/home/$USER/Escritorio/Programas/jdk/bin/
 
 JAVAC=$(JAVA_DIR)/javac
 JAVA=$(JAVA_DIR)/java
